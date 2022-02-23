@@ -1,6 +1,8 @@
- 
+# Download and store the data into working directory of the project.
 
 # Loading Data.
+
+## Loading packages for operations.
 
 library(tidyverse)
 library(lubridate)
@@ -8,6 +10,7 @@ library(janitor)
 library(hms)
 library(DescTools)
 library(scales)
+
 ## Loading .csv files into system.
 
 tripdata_202101 <- read_csv("202101-divvy-tripdata.csv")
@@ -24,7 +27,7 @@ tripdata_202111 <- read_csv("202111-divvy-tripdata.csv")
 tripdata_202112 <- read_csv("202112-divvy-tripdata.csv")
 
 
-#Preparing Data for Processing.
+# Preparing Data for Processing.
 
 ## Combining them into one.
 
@@ -44,7 +47,7 @@ trip_data <- rbind(tripdata_202101,
 glimpse(trip_data)
 
 
-#Processing Data for Analysis.
+# Processing Data for Analysis.
 
 ## Removing na values.
 
@@ -52,10 +55,10 @@ trip_data_cleaned <- trip_data[complete.cases(trip_data),]
 
 glimpse(trip_data_cleaned)
 
-## Dropping the trips with start time is greater than end time (add for length =0 and start station name = HQ QR).
+## Dropping the trips with start time is greater than end time (add for length =0).
 
 trip_data_cleaned <- trip_data_cleaned %>% 
-  filter(trip_data_cleaned$started_at < trip_data_cleaned$ended_at)
+  filter(trip_data_cleaned$started_at < trip_data_cleaned$ended_at & (trip_data_cleaned$started_at - trip_data_cleaned$ended_at) = 0)
 
 ## Adding ride duration with column name trip_length then converting it to hhmmss format.
 
