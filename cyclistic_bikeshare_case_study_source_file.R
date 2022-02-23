@@ -58,7 +58,7 @@ glimpse(trip_data_cleaned)
 ## Dropping the trips with start time is greater than end time (add for length =0).
 
 trip_data_cleaned <- trip_data_cleaned %>% 
-  filter(trip_data_cleaned$started_at < trip_data_cleaned$ended_at & (trip_data_cleaned$started_at - trip_data_cleaned$ended_at) = 0)
+  filter(trip_data_cleaned$started_at < trip_data_cleaned$ended_at)
 
 ## Adding ride duration with column name trip_length then converting it to hhmmss format.
 
